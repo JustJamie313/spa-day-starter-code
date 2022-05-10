@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -27,7 +28,7 @@ public class SpaDayController {
     @GetMapping(value="")
     @ResponseBody
     public String customerForm () {
-        String html = "<form method = 'post'>" +
+        String html = "<form action='submitted' method = 'post'>" +
                 "Name: <br>" +
                 "<input type = 'text' name = 'name'>" +
                 "<br>Skin type: <br>" +
@@ -41,13 +42,14 @@ public class SpaDayController {
                 "<select name = 'manipedi'>" +
                 "<option value = 'manicure'>Manicure</option>" +
                 "<option value = 'pedicure'>Pedicure</option>" +
+                "<option value = 'both'>Both</option>" +
                 "</select><br>" +
                 "<input type = 'submit' value = 'Submit'>" +
                 "</form>";
         return html;
     }
 
-    @PostMapping(value="")
+    @PostMapping(value="submitted")
     public String spaMenu(@RequestParam String name, @RequestParam String skintype, @RequestParam String manipedi, Model model) {
 
         ArrayList<String> facials = new ArrayList<>();
@@ -62,6 +64,14 @@ public class SpaDayController {
                 appropriateFacials.add(facials.get(i));
             }
         }
+
+        ArrayList<String> colors = new ArrayList<>();
+        colors.addAll(List.of("red","orange","yellow","green","blue","indigo","violet"));
+        model.addAttribute("facials",appropriateFacials);
+        model.addAttribute("name",name);
+        model.addAttribute("skintype",skintype);
+        model.addAttribute("manipedi",manipedi);
+        model.addAttribute("colors",colors);
 
         return "menu";
     }

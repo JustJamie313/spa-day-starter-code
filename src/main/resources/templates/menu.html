@@ -6,10 +6,57 @@
     <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
 <body>
-<h1>My Super Fancy Spa</h1>
-<div id = "clientProfile">
+
+<div class="container">
+    <h1>Jamie's Joint</h1>
+    <hr/>
+    <div id = "clientProfile">
+        <h2>My Profile</h2>
+        <p th:text="${name}"></p>
+        <p th:text="${skintype}"></p>
+        <p th:text="${manipedi}"></p>
+    </div>
+    <hr/>
+    <div id = "servicesMenu">
+        <h2>Menu of Available Services</h2>
+        <table>
+            <tr>
+                <th>Facial Treatments</th>
+            </tr>
+            <th:block th:each="facial:${facials}">
+                <tr>
+                    <td th:text="${facial}"></td>
+                </tr>
+            </th:block>
+        </table>
+        <div>
+
+            <th:block th:switch="${manipedi}">
+                <span th:case="manicure">
+                    <h3>Manicure</h3>
+                    <p th:replace="fragments::manicureDescription"></p>
+                </span>
+                <span th:case="pedicure">
+                    <h3>Pedicure</h3>
+                    <p th:replace="fragments::pedicureDescription"></p>
+                </span>
+                <span th:case="both">
+                    <h3>Manicure & Pedicure</h3>
+                    <p th:replace="fragments::manicureDescription"></p>
+                    <p th:replace="fragments::pedicureDescription"></p>
+                </span>
+            </th:block>
+<!--            <p th:unless="${manipedi == 'pedicure')}" th:replace="fragments::manicureDescription"></p>-->
+<!--            <p th:unless="${manipedi == 'manicure')}" th:replace="fragments::pedicureDescription"></p>-->
+            <div>
+                <h4>Polish Color Options:</h4>
+                <th:block th:each="color:${colors}">
+                    <span class="colorSwatch" th:style='|background-color:${color}|'></span>
+                </th:block>
+            </div>
+        </div>
+    </div>
 </div>
-<div id = "servicesMenu">
-</div>
+
 </body>
 </html>
