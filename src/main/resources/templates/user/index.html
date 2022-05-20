@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments::head">
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+<th:block th:unless="${users}">
+    <h3 th:text="|Hello, ${user.username}!|">Hello, Guest!</h3>
+    <a th:href="@{/}">Select Services</a>
+</th:block>
+<p th:unless="${user} or ${users} and ${users.size()}">There are no users.</p>
+
+<th:block th:unless="${user}">
+<table>
+    <thead>
+        <th>Username</th>
+        <th>User Details</th>
+    </thead>
+    <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}"></td>
+            <td><a th:href="@{user/details/}+${user.id}">View Details</a></td>
+        </tr>
+    </tbody>
+</table>
+</th:block>
+</body>
+</html>

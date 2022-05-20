@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments::head">
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+<h3>User Details</h3>
+<p>User ID: </span><span th:text="${user.id}"></span></p>
+<p>User Name: <span th:text="${user.username}"></span></p>
+<p>User Email: <span th:text="${user.email}"></span></p>
+<p>Member Since: <span th:text="${user.memberSince}"></span></p>
+<a th:href="@{/user}">Back</a>
+</body>
+</html>
