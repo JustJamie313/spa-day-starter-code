@@ -1,8 +1,12 @@
 package org.launchcode.spaday.models;
 
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.lang.Nullable;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
 import static java.util.Objects.isNull;
@@ -13,7 +17,7 @@ public class User {
     @NotBlank(message = "Username is required.")
     @Size(min=5,max=15,message="Username must be between 5 and 15 characters.")
     private String username;
-    @Email(regexp=".+@.+\\..+",message="Email address is invalid.")
+    @Email(regexp=".+@.+\\..+||null",message="Email address is invalid.")
     private String email;
     @NotBlank(message = "Password is required.")
     @Size(min=6,message="Password must be at least 6 characters.")
@@ -69,9 +73,6 @@ public class User {
         checkPassword();
     }
     private void checkPassword(){
-        System.out.println("Password: "+this.password);
-        System.out.println("Verify: "+this.verify);
-        System.out.println("Matches: "+this.password.equals(this.verify));
         if(!isNull(this.password) && !isNull(this.verify) && !this.password.equals(this.verify)){
             this.verify = null;
         }
