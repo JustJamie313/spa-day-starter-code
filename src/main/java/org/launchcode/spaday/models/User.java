@@ -5,10 +5,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class User {
+    private Integer id;
+    private static Integer nextID = 1;
     @NotBlank(message = "Username is required.")
     @Size(min=5,max=15,message="Username must be between 5 and 15 characters.")
     private String username;
-    @Email(message="Email address is invalid.")
+    @Email(regexp=".+@.+\\..+",message="Email address is invalid.")
     private String email;
     @NotBlank(message = "Password is required.")
     @Size(min=6,message="Password must be at least 6 characters.")
@@ -17,7 +19,8 @@ public class User {
     private String verify;
 
     public User() {
-
+        this.id = nextID;
+        nextID++;
     }
 
     public User(String username, String email, String password, String verify) {

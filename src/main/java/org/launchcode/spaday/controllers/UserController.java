@@ -13,16 +13,19 @@ import javax.validation.Valid;
 public class UserController {
 
     @GetMapping("/add")
-    public String displayAddUserForm() {
+    public String displayAddUserForm(Model model) {
+
+        model.addAttribute(new User());
         return "user/add";
     }
 
     @PostMapping
     public String processAddUserForm(Model model, @ModelAttribute @Valid User user, Errors errors) {
-        model.addAttribute("user",new User());
+
 
         if(errors.hasErrors()){
-            model.addAttribute("error",errors);
+            System.out.println(errors);
+            model.addAttribute("errors",errors);
             return "user/add";
         }
         if (user.getPassword().equals(user.getVerify())) {
