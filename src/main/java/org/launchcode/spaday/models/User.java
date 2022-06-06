@@ -1,12 +1,8 @@
 package org.launchcode.spaday.models;
 
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.lang.Nullable;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
 import static java.util.Objects.isNull;
